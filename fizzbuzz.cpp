@@ -20,9 +20,8 @@ int main()
 		}
 		else
 		{
-			cout << i << endl;;
+			cout << i << endl;
 		}
 	}
-	system("pause");
 	return 0;
 }

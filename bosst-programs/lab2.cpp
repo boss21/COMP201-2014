@@ -1,18 +1,19 @@
 #include <iostream>
+#include <string>
 #include <vector>
 #include <cstdlib>
-#include <string>
 
 using namespace std;
 
-int main (int argc, char *argv[]) {
-	vector<int> stack;
+int main() {
+	vector <int> stack;
+	string token;
+	char *end;
 	int ans, left, right;
-	char * end;
-	
-    for (int i = 1; i < argc; i++)
+	do 
 	{
-		string token = string(argv[i]);
+		cin >> token;
+
 		if (token == "+")
 		{
 			right = stack.back();
@@ -41,20 +42,26 @@ int main (int argc, char *argv[]) {
 			stack.push_back(ans);
 		}
 		else if (token == "/")
+		{  // ex. 10 2 /
+			right = stack.back(); //  2
+			stack.pop_back(); 
+			left = stack.back(); // 10
+			stack.pop_back(); 
+			ans = left / right; // 10 / 2
+			stack.push_back(ans); // 5
+		}
+		else if (token == ".")
 		{
-			right = stack.back();
-			stack.pop_back();
-			left = stack.back();
-			stack.pop_back();
-			ans = left * right;
-			stack.push_back(ans);
-		} else {
+			break;
+		}
+		else
+		{
 			stack.push_back(strtol(token.c_str(), &end, 10));
 		}
-	}
-	for (int i = 0; i < stack.size(); i++) {
+		} while (token != ".");
+	for (int i = 0; i < stack.size(); i++)
+	{
 		cout << stack[i] << endl;
 	}
 	return 0;
 }
-	

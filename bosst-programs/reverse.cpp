@@ -9,12 +9,12 @@ using namespace std;
 int main (int argc, char *argv[]) {
     string some_string;
     const char * c_string;
-    // Demo command-line parameters
-    for (int i = 0; i < argc; i++) {
-        cout << argv[i] << endl;
-    }
     // Read in a string from the user
     cin >> some_string;
+	   // Demo command-line parameters
+	for (int i = 1; i < argc; i++) {
+        cout << argv[i] << endl;
+    }
     // Convert fancy C++ string to C style string
     c_string = some_string.c_str();
     // Print it out is the same

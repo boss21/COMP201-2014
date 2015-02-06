@@ -147,6 +147,7 @@ bool Model::matched(int row, int column) {
 void Model::flip(int r, int c) {
    // If the row and column are not valid, break out and don't do anythin
 		if (!valid(r, c)) { return; }
+	    if ((r == lastrow) && (c == lastcolumn)) { return; }
 		switch (state)
 		{
 			case NO_MATCH:

@@ -95,7 +95,7 @@ Model::Model(int w, int h)
 		for (int j = 0; j < width; j++) 
 		{
 			grid[i][j] = letter;
-			visible [i][j] = '*';
+			visible[i][j] = '*';
 
 			if ((j) % 2 == 1) {
 				if (letter == 'Z') {

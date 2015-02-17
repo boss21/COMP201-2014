@@ -1,7 +1,7 @@
 #include "model.h"
 #include <cstdlib>
 #include <ctime>
-
+// weee
 using namespace std;
 
 // Constructor initializes the object

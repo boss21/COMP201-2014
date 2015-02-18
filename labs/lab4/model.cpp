@@ -41,7 +41,6 @@ Model::Model(int w, int h) {
 	srand(time(0));
 	
 	// Shuffle here
-	/*
 	int otheri, otherj;
 	for (int i = 0; i < height; i++)
 	{
@@ -55,7 +54,6 @@ Model::Model(int w, int h) {
 			grid[otheri][otherj] = letter;
 		}
 	}
-	*/
 }
 // Destructor deletes dynamically allocated memory
 Model::~Model() {

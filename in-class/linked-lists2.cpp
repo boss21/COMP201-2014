@@ -43,26 +43,51 @@ public:
         head = NULL;
         tail = NULL;
     }
-    void push_front(T element) {
-        Node<T> * node = new Node<T>(element, head);
+    void push_front(T element) { // assigns front
+        Node<T> * node = new Node<T>(element, head); 
+		if (empty()) { // tail must be initialized also
+			tail = node;
+		}
         head = node;
     }
-    T peek_front() {
+    T peek_front() { //shows front
         return head->data;
     }
-    void pop_front() {
+    void pop_front() 
+	{ // removes front
         Node<T> * node = head->next;
         delete head;
+		if (node != NULL)
+		{
+		node->prev = NULL;
         head = node;
+		}
+		else 
+		{
+			head = NULL;
+			tail = NULL;
+		}
     }
-    void push_back(T element) {
-    
+    void push_back(T element) {  // assigns back
+		Node<T> * node = new Node<T>(element, NULL, tail);
+		if (tail != NULL)
+		{
+		tail->next = node; // pointing to next node
+		}
+		else
+		{
+			head = node;
+		}
+		tail = node;
     }
-    T peek_back() {
-    
+    T peek_back() { // shows back
+		return tail->data;
     }
-    void pop_back() {
-    
+    void pop_back() {  // removes back
+		Node<T> * node = tail->prev;
+        delete tail;
+		node->next = NULL;
+		tail = node;
     }
     bool empty() {
         return head == NULL && tail == NULL;

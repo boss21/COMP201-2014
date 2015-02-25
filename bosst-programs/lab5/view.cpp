@@ -51,7 +51,6 @@ SDL_Surface* View::load(char * path) {
 }
 
 void View::show(Model * model) {
-
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 
@@ -79,6 +78,13 @@ void View::show(Model * model) {
         0x00, 0x80, 0x00));
     }
     
-
+	if (model->gameOver()) {
+		dest.x = 0;
+		dest.y = 0;
+		dest.w = 640;
+		dest.h = 640;
+		SDL_Surface* surface = load("assets/dead.jpg");
+		SDL_BlitSurface( surface, NULL, screen, &dest );
+	}
     SDL_UpdateWindowSurface(window);
 }

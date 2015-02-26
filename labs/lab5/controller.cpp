@@ -4,8 +4,8 @@
 using namespace std;
 
 Controller::Controller() {
-    model = new Model(8,8);
-    view = new View("Snake", 1024, 768);
+    model = new Model(40,40);
+    view = new View("Snake", 640, 640);
 }
 
 Controller::~Controller() {
@@ -29,7 +29,7 @@ void Controller::loop() {
     while(!model->gameOver()) {
         currentTime = SDL_GetTicks();
         // Crawl (move) once every 100 milliseconds
-        if (currentTime > lastTime + 100) {
+        if (currentTime > lastTime + 140) {
             model->crawl();
             lastTime = currentTime;
         }
@@ -54,25 +54,7 @@ void Controller::loop() {
             }
         }
     }
-    // TODO: show something nice?
+    // Game Over
     view->show(model);
-    SDL_Delay(3000);
+    SDL_Delay(2000);
 }
-
-/*
-// Show the board
-// Read in coordinates
-// Until we're done
-void Controller::loop() {
-    int row, col;
-    while (!model->gameOver()) {
-        view->show(model);
-        cout << "Enter row:    ";
-        cin >> row;
-        cout << "Enter column: ";
-        cin >> col;
-        model->flip(row, col);
-    }
-    cout << "Hooray, you win!" << endl;
-}
-*/

@@ -51,6 +51,7 @@ SDL_Surface* View::load(char * path) {
 }
 
 void View::show(Model * model) {
+
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 
@@ -71,14 +72,13 @@ void View::show(Model * model) {
             0x80, 0x00, 0x00));
     
     // Draw the snake
-    for (std::list<Coordinate>::iterator it=model->snake.begin(); it!=model->snake.end(); it++) {
+    for (List<Coordinate>::iterator it=model->snake.begin(); it!=model->snake.end(); it++) {
         dest.x = it->x * 16;
         dest.y = it->y * 16;
         SDL_FillRect(screen, &dest, SDL_MapRGB(screen->format,
         0x00, 0x80, 0x00));
     }
-    
-	if (model->gameOver()) {
+    if (model->gameOver()) {
 		dest.x = 0;
 		dest.y = 0;
 		dest.w = 640;

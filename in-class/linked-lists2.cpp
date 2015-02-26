@@ -67,7 +67,7 @@ public:
 			head = NULL;
 			tail = NULL;
 		}
-    }
+    }	
     void push_back(T element) {  // assigns back
 		Node<T> * node = new Node<T>(element, NULL, tail);
 		if (tail != NULL)

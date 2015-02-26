@@ -35,7 +35,8 @@ void Model::go(Direction d) {
 
 // Move foward
 void Model::crawl() {
-    Coordinate front = snake.front();
+	srand(time(NULL));
+    Coordinate front = snake.peek_front();
     switch(direction) {
     case UP: front.y--; break;
     case DOWN: front.y++; break;
@@ -44,13 +45,25 @@ void Model::crawl() {
     }
     // TODO: Colliding with the perimeter of the screen should set direction to DEAD
     // When DEAD, the snake slowly shrinks down to nothing
-    
+    if ((front.x > width) || (front.y > height) || (front.x < 0) || (front.y < 0))
+	{
+			direction = DEAD;
+	}
     if (direction != DEAD) {
         snake.push_front(front);
     }
-
-    // TODO: Colliding with food grows the snake (so don't pop_back in that case)
-    // TODO: Also, colliding with food should cause us to place the food somewhere
-    // else, but not anywhere on the snake.
-    snake.pop_back();
+	
+    if (front.x == food.x && front.y == food.y)
+	{
+		food.x = rand() % 40;
+		food.y = rand() % 40;
+	}
+    else
+	{
+		if (direction != DEAD) {
+			snake.pop_back(); // removes one from back
+		} else {
+			snake.pop_front();
+		}
+	}
 }

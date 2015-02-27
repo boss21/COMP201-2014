@@ -28,16 +28,17 @@ void Controller::loop() {
 
     while(!model->gameOver()) {
         currentTime = SDL_GetTicks();
+        view->show(model);
         // Crawl (move) once every 100 milliseconds
         if (currentTime > lastTime + 140) {
             model->crawl();
             lastTime = currentTime;
         }
-        view->show(model);
         if (SDL_PollEvent(&e) != 0) {
             switch (e.type) {
             case SDL_QUIT:
-                return;
+                model->end();
+                break;
             case SDL_KEYDOWN:
                 switch(e.key.keysym.sym) {
                 case SDLK_DOWN:
@@ -54,7 +55,7 @@ void Controller::loop() {
             }
         }
     }
-    // Game Over
+    // TODO: show something nice?
     view->show(model);
-    SDL_Delay(2000);
+    SDL_Delay(5000);
 }

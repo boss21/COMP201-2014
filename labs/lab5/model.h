@@ -1,4 +1,5 @@
-#include "list.h"
+#include <list>
+// #include "list.h"
 
 #ifndef _MODEL_H
 #define _MODEL_H
@@ -23,9 +24,17 @@ public:
     void crawl();
     // Is the game over?
     bool gameOver();
+    // Did we just collide with food?
+    bool eating();
+    // Quit the game
+    void end();
+	
     // TODO: swap this out with your own list implementation
     // The snake
-    List<Coordinate> snake;
+	
+    std::list<Coordinate> snake;
+	// List<Coordinate> snake;
+	
     // The food
     Coordinate food;
     // Which way is the snake moving?
@@ -34,6 +43,9 @@ public:
     int width;
     // What's the height?
     int height;
+private:
+    bool ended;
+	bool eat;
 };
 
 #endif

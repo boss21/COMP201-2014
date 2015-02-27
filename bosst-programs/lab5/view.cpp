@@ -51,7 +51,7 @@ SDL_Surface* View::load(char * path) {
 }
 
 void View::show(Model * model) {
-
+// background image
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 

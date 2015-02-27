@@ -23,9 +23,36 @@ View::View(string title, int width, int height) {
         fail = true;
         return;
     }
+    //Initialize SDL_mixer
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ) {
+        fail = true;
+        return;
+    }
+
+    // Initialize True type fonts
+    if( TTF_Init() == -1 ) {
+        return;
+    }
+
+    // Load assets
+    snake = load("assets/snake.png");
+    music = Mix_LoadMUS("assets/bmusic.mp3");
+    if (music != NULL) {
+        Mix_PlayMusic( music, -1 );
+    }
+    food = Mix_LoadWAV("assets/beating.wav");
+    dead = Mix_LoadWAV("assets/bcleveland.wav");
+    font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 16 );
 }
 
 View::~View() {
+    TTF_CloseFont( font );
+    TTF_Quit();
+    Mix_FreeMusic(music);
+    Mix_FreeChunk(food);
+    Mix_FreeChunk(dead);
+    SDL_FreeSurface(snake);
+    SDL_FreeSurface(text);
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
@@ -51,13 +78,20 @@ SDL_Surface* View::load(char * path) {
 }
 
 void View::show(Model * model) {
-
+	// background image
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 
     SDL_Rect dest;
     dest.w = 16;
     dest.h = 16;
+    
+    if (model->eating()) {
+        Mix_PlayChannel( -1, food, 0 );
+    }
+    if (model->gameOver()) {
+        Mix_PlayChannel( -1, dead, 0 );
+    }
     
     // TODO: I went all Atari 2600 on you guys. Perhaps you'd like to upgrade
     // the view with something nice, like a cartoon snake?
@@ -72,13 +106,24 @@ void View::show(Model * model) {
             0x80, 0x00, 0x00));
     
     // Draw the snake
-    for (List<Coordinate>::iterator it=model->snake.begin(); it!=model->snake.end(); it++) {
+	
+	// for (List<Coordinate> ??? whats the rest?
+	
+    for (std::list<Coordinate>::iterator it=model->snake.begin(); it!=model->snake.end(); it++) {
         dest.x = it->x * 16;
         dest.y = it->y * 16;
         SDL_FillRect(screen, &dest, SDL_MapRGB(screen->format,
         0x00, 0x80, 0x00));
     }
-    if (model->gameOver()) {
+    
+    
+    SDL_Color textColor = { 255, 255, 255 };
+    text = TTF_RenderText_Solid( font, "Playing: Haddaway - What Is Love (Instrumental)", textColor );
+    dest.x = 156;
+    dest.y = 610;
+    SDL_BlitSurface( text, NULL, screen, &dest );
+	
+	if (model->gameOver()) {
 		dest.x = 0;
 		dest.y = 0;
 		dest.w = 640;
@@ -86,5 +131,6 @@ void View::show(Model * model) {
 		SDL_Surface* surface = load("assets/dead.jpg");
 		SDL_BlitSurface( surface, NULL, screen, &dest );
 	}
+	
     SDL_UpdateWindowSurface(window);
 }

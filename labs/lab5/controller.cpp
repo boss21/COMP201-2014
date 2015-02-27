@@ -31,7 +31,7 @@ void Controller::loop() {
         view->show(model);
         // Crawl (move) once every 100 milliseconds
         if (currentTime > lastTime + 140) {
-            model->crawl();
+            model->crawl(model);
             lastTime = currentTime;
         }
         if (SDL_PollEvent(&e) != 0) {
@@ -40,6 +40,8 @@ void Controller::loop() {
                 model->end();
                 break;
             case SDL_KEYDOWN:
+			if(!model->ended)
+			{
                 switch(e.key.keysym.sym) {
                 case SDLK_DOWN:
                 case SDLK_UP:
@@ -50,12 +52,13 @@ void Controller::loop() {
                 default:
                 break;
                 }
+			}
             case SDL_MOUSEBUTTONDOWN:
                 break;
             }
         }
     }
-    // TODO: show something nice?
+    // TODO: show something nice? (DONE)
     view->show(model);
     SDL_Delay(5000);
 }

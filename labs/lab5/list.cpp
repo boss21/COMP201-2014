@@ -1,7 +1,7 @@
 #include "list.h"
-
 #define NULL ((void *)0)
 
+/*
 template <typename T>
 Node<T>::Node(T d, Node<T> * n, Node<T> * p) {
     data = d;
@@ -60,7 +60,7 @@ void List<T>::pop_front() {
 
 template <typename T>
 void List<T>::push_back(T element) {
- // ?
+ Node<T> * node = new Node<T> (element, NULL, tail);
 }
 
 template <typename T>
@@ -70,7 +70,7 @@ T List<T>::peek_back() {
 
 template <typename T>
 void List<T>::pop_back() {
-  // ?
+  Node<T> * node = tail->prev;
 }
 
 template <typename T>
@@ -103,3 +103,4 @@ int List<T>::size() {
     
     return result;
 }
+*/

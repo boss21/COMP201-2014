@@ -46,23 +46,18 @@ void Model::end() {
 }
 
 // Move foward
-void Model::crawl() {
-    Coordinate front = snake.front();
-	// Coordinate front = snake.peek_front();
-	
-	if (ended == true)
-		{
-			// no user input allowed, for some reason its allowing arrow keys?
-		}
-		else
-		{
+void Model::crawl(Model * model) {
+    // Coordinate front = snake.front();
+	Coordinate front = snake.peek_front();
+			// make snake not be allowed
+			// to hit itself?
+
 		switch(direction) 
 		{
 		case UP: front.y--; break;
 		case DOWN: front.y++; break;
 		case LEFT: front.x--; break;
 		case RIGHT: front.x++; break;
-		}
 		}
     // TODO: Colliding with the perimeter of the screen should set direction to DEAD
     // When DEAD, the snake slowly shrinks down to nothing
@@ -73,7 +68,20 @@ void Model::crawl() {
 	//reset eat first
 	eat = false;
 	
-	//tell if its hit the wall and if so, kill it
+	//tell if it hits itself and if so, kill it
+	Node<Coordinate> * it = model->snake.begin();
+	it = it->next;
+	while (it != model->snake.end())
+	{
+		if((front.x == it->data.x) && (front.y == it->data.y))
+		{
+			end();
+			go(DEAD);
+		}
+		it = it->next;
+		
+	}
+	
 	if(front.x < 0 || front.y < 0 || front.x > width || front.y > height)
 	{
 		//hit the wall

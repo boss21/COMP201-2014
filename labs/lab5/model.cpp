@@ -82,7 +82,7 @@ void Model::crawl(Model * model) {
 		
 	}
 	
-	if(front.x < 0 || front.y < 0 || front.x > width || front.y > height)
+	if(front.x < 0 || front.y < 0 || front.x > 39 || front.y > 39)
 	{
 		//hit the wall
 		end();

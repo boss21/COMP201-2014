@@ -16,7 +16,7 @@ int main() {
 
 		if (token == "+")
 		{
-			right = stack.back();
+			right = stack.back(); // sets right equal to the vector stack.back, (we are using back in this case
 			stack.pop_back();
 			left = stack.back();
 			stack.pop_back();

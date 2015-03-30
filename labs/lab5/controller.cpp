@@ -30,7 +30,7 @@ void Controller::loop() {
         currentTime = SDL_GetTicks();
         view->show(model);
         // Crawl (move) once every 100 milliseconds
-        if (currentTime > lastTime + 140) {
+        if (currentTime > lastTime + 100) {
             model->crawl(model);
             lastTime = currentTime;
         }
